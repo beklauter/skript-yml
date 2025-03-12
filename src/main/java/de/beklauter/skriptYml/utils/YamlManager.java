@@ -54,13 +54,7 @@ public class YamlManager {
         YamlConfiguration config = getOrCreateFile(path);
         if (config == null) return;
 
-        if (value != null && value.getClass().isArray()) {
-            Object[] array = (Object[]) value;
-            config.set(key, java.util.Arrays.asList(array));
-        } else {
-            config.set(key, value);
-        }
-
+        config.set(key, value);
         saveFile(path);
     }
 
