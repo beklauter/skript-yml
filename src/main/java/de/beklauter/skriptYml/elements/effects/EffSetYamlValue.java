@@ -1,9 +1,11 @@
 package de.beklauter.skriptYml.elements.effects;
 
 import ch.njol.skript.Skript;
+import ch.njol.skript.classes.Changer;
 import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser.ParseResult;
+import ch.njol.skript.util.Utils;
 import ch.njol.util.Kleenean;
 import de.beklauter.skriptYml.utils.YamlManager;
 import org.bukkit.event.Event;
@@ -17,13 +19,13 @@ public class EffSetYamlValue extends Effect {
 
     private Expression<String> key;
     private Expression<String> filePath;
-    private Expression<Object> value;
+    private Expression<?> value;
 
     @Override
     public boolean init(Expression<?>[] exprs, int matchedPattern, Kleenean isDelayed, ParseResult parseResult) {
         this.key = (Expression<String>) exprs[0];
         this.filePath = (Expression<String>) exprs[1];
-        this.value = (Expression<Object>) exprs[2];
+        this.value = exprs[2];
         return true;
     }
 
@@ -31,11 +33,16 @@ public class EffSetYamlValue extends Effect {
     protected void execute(Event e) {
         String keyStr = key.getSingle(e);
         String pathStr = filePath.getSingle(e);
-        Object valueObj = value.getSingle(e);
 
         if (keyStr == null || pathStr == null) return;
 
-        YamlManager.setValue(pathStr, keyStr, valueObj);
+        if (value.isSingle()) {
+            Object valueObj = value.getSingle(e);
+            YamlManager.setValue(pathStr, keyStr, valueObj);
+        } else {
+            Object[] values = value.getArray(e);
+            YamlManager.setValue(pathStr, keyStr, values);
+        }
     }
 
     @Override
