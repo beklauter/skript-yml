@@ -1,0 +1,5 @@
+name: skript-yml
+version: '1.0-SNAPSHOT'
+main: de.beklauter.skriptYml.SkriptYml
+api-version: '1.21'
+authors: [ kbl/beklauter ]
