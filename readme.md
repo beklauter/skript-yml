@@ -119,7 +119,7 @@ on join:
 
 ## Documentation
 
-Full documentation is available at: [https://vortex-esports.xyz/skriptYml/SkriptYml](https://vortex-esports.xyz/skriptYml/SkriptYml)
+Full documentation is available at: [https://vortex-esports.xyz/skriptYml/](https://vortex-esports.xyz/skriptYml/)
 
 ## For Developers
 
